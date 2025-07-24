@@ -1,3 +1,5 @@
+// auth.interceptor.ts
+
 import { inject } from '@angular/core';
 import { HttpInterceptorFn, HttpRequest, HttpHandlerFn } from '@angular/common/http';
 import { AuthService } from './auth.service';

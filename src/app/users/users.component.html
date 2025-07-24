@@ -1,0 +1,73 @@
+<div class="dashboard">
+  <!-- HEADER -->
+  <header class="dashboard__header">
+    <div class="header-left">
+      <img src="favicon.ico" alt="Logo" class="logo" />
+      <h1 class="company-name">{{ companyName }}</h1>
+    </div>
+    <div class="header-right">
+      <span class="user-name">Hola, {{ userName }}</span>
+      <button class="logout-btn" (click)="logout()">Salir</button>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="dashboard__content">
+    <section class="filters">
+      <h2>Buscar Usuarios</h2>
+      <form (submit)="searchUsers()" class="filters__form">
+        <input type="number" placeholder="ID" [(ngModel)]="filters.id" name="id" />
+        <input type="text" placeholder="Username" [(ngModel)]="filters.username" name="username" />
+        <input type="email" placeholder="Email" [(ngModel)]="filters.email" name="email" />
+        <button type="submit" class="btn-search">Buscar</button>
+        <button type="button" (click)="clearFilters()" class="btn-clear">Limpiar</button>
+      </form>
+    </section>
+
+    <section class="users-table">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Enabled</th>
+            <th>Admin</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+              <span [class.enabled]="user.enabled" [class.disabled]="!user.enabled">
+                {{ user.enabled ? 'Sí' : 'No' }}
+              </span>
+            </td>
+            <td>
+              <span [class.admin]="user.isAdmin" [class.noadmin]="!user.isAdmin">
+                {{ user.isAdmin ? '✔' : '✖' }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="pagination-controls">
+        <button (click)="loadPrevious()" [disabled]="!hasPrevious">Anterior</button>
+        <button (click)="loadNext()" [disabled]="!hasNext">Siguiente</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="dashboard__footer">
+    <p>&copy; {{ year }} {{ companyName }} - Todos los derechos reservados</p>
+    <div class="footer-links">
+      <a routerLink="/about">Acerca de</a>
+      <a routerLink="/contact">Contacto</a>
+      <a routerLink="/help">Ayuda</a>
+    </div>
+  </footer>
+</div>

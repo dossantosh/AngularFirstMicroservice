@@ -10,6 +10,7 @@ import { provideClientHydration } from '@angular/platform-browser';
 
 import { authInterceptor } from '../app/auth/auth.interceptor';
 import { errorInterceptor } from '../app/core/interceptors/error.interceptor';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -21,6 +22,6 @@ export const appConfig: ApplicationConfig = {
         authInterceptor,
         errorInterceptor,
       ])
-    ),
+    ), provideAnimationsAsync(),
   ],
 };

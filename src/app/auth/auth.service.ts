@@ -1,9 +1,10 @@
-// src/app/auth/auth.service.ts
+// auth.service.ts
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import { environment } from '../../enviroments/environments';
+import { environment } from '../../environments/environments';
 import { of } from 'rxjs';
 import { delay, tap } from 'rxjs/operators';
 
