@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import { environment } from '../../environments/environments';
+import { environment } from '../../shared/environments/environments';
 import { of } from 'rxjs';
 import { delay, tap } from 'rxjs/operators';
 

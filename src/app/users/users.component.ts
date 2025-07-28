@@ -5,7 +5,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
 
-import { environment } from '../../environments/environments';
+import { environment } from '../../shared/environments/environments';
 
 interface UserDTO {
   id: number;

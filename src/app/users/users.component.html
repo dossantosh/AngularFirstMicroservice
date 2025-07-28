@@ -1,33 +1,26 @@
+<!-- users.component.html -->
 <div class="dashboard">
-  <!-- HEADER -->
-  <header class="dashboard__header">
-    <div class="header-left">
-      <img src="favicon.ico" alt="Logo" class="logo" />
-      <h1 class="company-name">{{ companyName }}</h1>
-    </div>
-    <div class="header-right">
-      <span class="user-name">Hola, {{ userName }}</span>
-      <button class="logout-btn" (click)="logout()">Salir</button>
-    </div>
-  </header>
 
   <!-- MAIN CONTENT -->
   <main class="dashboard__content">
+    <!-- FILTROS DE BÚSQUEDA -->
     <section class="filters">
-      <h2>Buscar Usuarios</h2>
+      <h2 class="filters__title">Buscar Usuarios</h2>
       <form (submit)="searchUsers()" class="filters__form">
-        <input type="number" placeholder="ID" [(ngModel)]="filters.id" name="id" />
-        <input type="text" placeholder="Username" [(ngModel)]="filters.username" name="username" />
-        <input type="email" placeholder="Email" [(ngModel)]="filters.email" name="email" />
-        <button type="submit" class="btn-search">Buscar</button>
-        <button type="button" (click)="clearFilters()" class="btn-clear">Limpiar</button>
+        <input type="number" placeholder="ID" [(ngModel)]="filters.id" name="id" class="filters__input" />
+        <input type="text" placeholder="Username" [(ngModel)]="filters.username" name="username"
+          class="filters__input" />
+        <input type="email" placeholder="Email" [(ngModel)]="filters.email" name="email" class="filters__input" />
+        <button type="submit" class="btn btn--primary filters__btn">Buscar</button>
+        <button type="button" (click)="clearFilters()" class="btn btn--warning filters__btn">Limpiar</button>
       </form>
     </section>
 
+    <!-- TABLA DE USUARIOS -->
     <section class="users-table">
-      <table>
+      <table class="users-table__table">
         <thead>
-          <tr>
+          <tr class="users-table__header-row">
             <th>ID</th>
             <th>Username</th>
             <th>Email</th>
@@ -36,17 +29,19 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let user of users">
+          <tr *ngFor="let user of users" class="users-table__row">
             <td>{{ user.id }}</td>
             <td>{{ user.username }}</td>
             <td>{{ user.email }}</td>
             <td>
-              <span [class.enabled]="user.enabled" [class.disabled]="!user.enabled">
+              <span [class.users-table__status--enabled]="user.enabled"
+                [class.users-table__status--disabled]="!user.enabled">
                 {{ user.enabled ? 'Sí' : 'No' }}
               </span>
             </td>
             <td>
-              <span [class.admin]="user.isAdmin" [class.noadmin]="!user.isAdmin">
+              <span [class.users-table__status--admin]="user.isAdmin"
+                [class.users-table__status--noadmin]="!user.isAdmin">
                 {{ user.isAdmin ? '✔' : '✖' }}
               </span>
             </td>
@@ -54,20 +49,11 @@
         </tbody>
       </table>
 
-      <div class="pagination-controls">
-        <button (click)="loadPrevious()" [disabled]="!hasPrevious">Anterior</button>
-        <button (click)="loadNext()" [disabled]="!hasNext">Siguiente</button>
+      <div class="users-table__pagination">
+        <button (click)="loadPrevious()" [disabled]="!hasPrevious"
+          class="pagination__btn btn btn--primary">Anterior</button>
+        <button (click)="loadNext()" [disabled]="!hasNext" class="pagination__btn btn btn--primary">Siguiente</button>
       </div>
     </section>
   </main>
-
-  <!-- FOOTER -->
-  <footer class="dashboard__footer">
-    <p>&copy; {{ year }} {{ companyName }} - Todos los derechos reservados</p>
-    <div class="footer-links">
-      <a routerLink="/about">Acerca de</a>
-      <a routerLink="/contact">Contacto</a>
-      <a routerLink="/help">Ayuda</a>
-    </div>
-  </footer>
 </div>

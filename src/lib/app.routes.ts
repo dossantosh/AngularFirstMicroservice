@@ -1,13 +1,28 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from '../app/auth/login/login.component';
+
+import { MainLayoutComponent } from '../shared/components/main-layout.component';
 import { IndexComponent } from '../app/index/index.component';
 import { UsersComponent } from '../app/users/users.component';
+
+import { LoginComponent } from '../app/auth/login/login.component';
+
 import { authGuard } from '../app/auth/auth.guard';
 
-export const appRoutes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'users', component: UsersComponent, canActivate: [authGuard] },
-  { path: '', component: IndexComponent, canActivate: [authGuard] },
-  { path: '**', redirectTo: '' },
+export const routes: Routes = [
+  {
+    path: '',
+    component: MainLayoutComponent,
+    children: [
+      { path: '', component: IndexComponent, canActivate: [authGuard] },
+      { path: 'users', component: UsersComponent, canActivate: [authGuard] },
+    ],
+  },
+  {
+    path: 'login',
+    component: LoginComponent, // Aquí no hay layout ni header/footer
+  },
+  {
+    path: '**',
+    redirectTo: '', // O página 404
+  },
 ];
-export class AppRoutingModule { }

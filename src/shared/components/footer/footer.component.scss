@@ -1,0 +1,43 @@
+@import './../../styles/common.styles.scss';
+
+// dashboard.component.scss
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  &__content {
+    flex: 1;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  &__footer {
+    background: darken($color-primary-dark, 10%);
+    color: #ecf0f1;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.95rem;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+
+    .dashboard__footer-text {
+      margin: 0;
+    }
+
+    .dashboard__footer-links {
+      margin-top: 0.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+
+      .btn {
+        @extend .btn;
+        @extend .btn--transparent-gray;
+      }
+    }
+  }
+}

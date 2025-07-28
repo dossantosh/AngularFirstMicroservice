@@ -1,33 +1,8 @@
-<!-- index.component.html -->
 <div class="dashboard">
-  <!-- HEADER -->
-  <header class="dashboard__header">
-    <div class="header-left">
-      <img src="favicon.ico" alt="Logo" class="logo" />
-      <h1 class="company-name">{{ companyName }}</h1>
-    </div>
-    <div class="header-right">
-      <span class="user-name">Hola, {{ userName }}</span>
-      <button class="logout-btn" (click)="logout()">Salir</button>
-    </div>
-  </header>
 
   <!-- MAIN CONTENT -->
   <main class="dashboard__content">
-    <nav class="modules-nav">
-      <a routerLink="/users" class="module-card">Usuarios</a>
-      <a routerLink="/perfumes" class="module-card">Perfumes</a>
-      <a routerLink="/configuration" class="module-card">Configuración</a>
-    </nav>
+    <span class="dashboard__user-name">Hola, {{ userName }}</span>
   </main>
 
-  <!-- FOOTER -->
-  <footer class="dashboard__footer">
-    <p>&copy; {{ year }} {{ companyName }} - Todos los derechos reservados</p>
-    <div class="footer-links">
-      <a routerLink="/about">Acerca de</a>
-      <a routerLink="/contact">Contacto</a>
-      <a routerLink="/help">Ayuda</a>
-    </div>
-  </footer>
 </div>
