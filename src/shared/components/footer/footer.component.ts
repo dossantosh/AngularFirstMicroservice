@@ -1,5 +1,12 @@
 import { Component, Input } from '@angular/core';
 
+/**
+ * Footer component that displays company information and the current year.
+ * 
+ * Inputs:
+ * - companyName: The name of the company to display.
+ * - year: The current year to display.
+ */
 @Component({
   selector: 'app-footer',
   standalone: true,
@@ -7,6 +14,7 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./footer.component.scss'],
 })
 export class FooterComponent {
-  @Input() companyName = 'Mi Empresa';
+  @Input() companyName = 'My Company';
+
   @Input() year = new Date().getFullYear();
 }

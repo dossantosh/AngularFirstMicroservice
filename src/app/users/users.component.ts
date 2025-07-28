@@ -1,12 +1,16 @@
+// users.component.ts
+
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
-
 import { environment } from '../../shared/environments/environments';
 
+/**
+ * Data transfer object for User
+ */
 interface UserDTO {
   id: number;
   username: string;
@@ -15,6 +19,9 @@ interface UserDTO {
   isAdmin: boolean;
 }
 
+/**
+ * Generic keyset pagination response
+ */
 interface KeysetPage<T> {
   content: T[];
   hasNext: boolean;
@@ -34,21 +41,27 @@ interface KeysetPage<T> {
 export class UsersComponent {
   private readonly apiUrl = `${environment.apiUrl}/users`;
 
-  userName = 'Sebastián Dos Santos';
-  companyName = "Seb's Perfumes";
+  // Display data
+  userName = 'Temporal Name';
+  companyName = "Temporal Name";
   year = new Date().getFullYear();
 
+  // Fetched users from backend
   users: UserDTO[] = [];
+
+  // Filtering form model
   filters = {
     id: null as number | null,
     username: '',
     email: ''
   };
 
+  // Pagination settings
   limit = 50;
   direction: 'NEXT' | 'PREVIOUS' = 'NEXT';
   lastId: number | null = null;
 
+  // Pagination state flags
   hasNext = false;
   hasPrevious = false;
   nextId: number | null = null;
@@ -59,13 +72,21 @@ export class UsersComponent {
     private readonly auth: AuthService,
     private readonly http: HttpClient
   ) {
+    // Fetch initial list of users on component load
     this.searchUsers();
   }
 
+  /**
+   * Logs out the current user and redirects to the login page.
+   */
   logout() {
     this.auth.logout();
   }
 
+  /**
+   * Sends a GET request to the backend with filters and pagination info.
+   * Updates the component state with the result.
+   */
   searchUsers() {
     let params = new HttpParams()
       .set('limit', this.limit.toString())
@@ -89,7 +110,7 @@ export class UsersComponent {
         if (page) {
           this.users = page.content || [];
           this.hasNext = page.hasNext;
-          this.hasPrevious = page.hasPrevious; // uso correcto aquí
+          this.hasPrevious = page.hasPrevious;
           this.nextId = page.nextId;
           this.previousId = page.previousId;
           this.empty = this.users.length === 0;
@@ -101,6 +122,9 @@ export class UsersComponent {
     });
   }
 
+  /**
+   * Clears the user list and resets pagination state.
+   */
   clearUsers() {
     this.users = [];
     this.hasNext = false;
@@ -110,6 +134,9 @@ export class UsersComponent {
     this.empty = true;
   }
 
+  /**
+   * Resets all filters and pagination, then fetches users again.
+   */
   clearFilters() {
     this.filters = { id: null, username: '', email: '' };
     this.lastId = null;
@@ -117,6 +144,9 @@ export class UsersComponent {
     this.searchUsers();
   }
 
+  /**
+   * Loads the next page of users if available.
+   */
   loadNext() {
     if (this.hasNext && this.nextId != null) {
       this.lastId = this.nextId;
@@ -125,6 +155,9 @@ export class UsersComponent {
     }
   }
 
+  /**
+   * Loads the previous page of users if available.
+   */
   loadPrevious() {
     if (this.hasPrevious && this.previousId != null) {
       this.lastId = this.previousId;

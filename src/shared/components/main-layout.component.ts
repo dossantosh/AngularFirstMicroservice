@@ -4,6 +4,13 @@ import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../app/auth/auth.service';
 
+/**
+ * Main layout component that wraps the app’s primary structure.
+ * 
+ * Includes the header, footer, and a router outlet for child views.
+ * Passes company and user info to header and footer.
+ * Handles user logout through AuthService.
+ */
 @Component({
   selector: 'app-main-layout',
   standalone: true,
@@ -28,13 +35,15 @@ import { AuthService } from '../../app/auth/auth.service';
   `
 })
 export class MainLayoutComponent {
-  companyName = 'Mi Empresa';
-  userName = 'Usuario';
+  companyName = "Seb's Perfumes";
+
+  userName = this.auth.currentUser?.username || 'Guest';
+
   year = new Date().getFullYear();
 
   constructor(
     private readonly auth: AuthService
-  ){}
+  ) {}
 
   logout() {
     this.auth.logout();

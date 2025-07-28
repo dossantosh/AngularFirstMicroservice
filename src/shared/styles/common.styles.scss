@@ -2,6 +2,7 @@
 
 // common.styles.scss
 
+// Reset and base styles for html and body
 html, body {
   height: 100%;
   margin: 0;
@@ -17,13 +18,14 @@ body {
   min-height: 100vh;
 }
 
+// Root app component style to fill available space
 app-root {
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
-// Estilo general de la app tipo dashboard
+// General dashboard style for the application container
 .dashboard {
   display: flex;
   flex-direction: column;
@@ -39,6 +41,7 @@ app-root {
     flex-direction: column;
     gap: 2rem;
 
+    // User name styling inside dashboard content
     .user-name {
       font-size: 1.1rem;
       font-weight: 600;
@@ -49,7 +52,7 @@ app-root {
   }
 }
 
-// Botones comunes
+// Common button styles with variants
 .btn {
   padding: 0.5rem 1.25rem;
   font-weight: 500;
@@ -101,7 +104,7 @@ app-root {
   }
 }
 
-// Tarjetas reutilizables
+// Reusable card component styles
 .card {
   background: #fff;
   border-radius: 12px;
@@ -109,7 +112,7 @@ app-root {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-// Campos de formulario
+// Form control input styles with validation states
 .form-control {
   padding: 0.75rem;
   border: 1px solid #ccc;
