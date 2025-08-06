@@ -1,0 +1,118 @@
+{
+  "name": "UsersManagement",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "apps/UsersManagement/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-builders/custom-webpack:browser",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/apps/UsersManagement",
+        "index": "apps/UsersManagement/src/index.html",
+        "main": "apps/UsersManagement/src/main.ts",
+        "polyfills": [
+          "zone.js"
+        ],
+        "tsConfig": "apps/UsersManagement/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "libs/assets/src/lib/assets",
+            "output": "assets"
+          },
+          {
+            "glob": "favicon.ico",
+            "input": "libs/assets/src/lib/assets",
+            "output": "/"
+          }
+        ],
+        "stylePreprocessorOptions": {
+          "includePaths": [
+            "libs/styles/src/lib"
+          ]
+        },
+        "customWebpackConfig": {
+          "path": "webpack.config.js"
+        },
+        "styles": [
+          "libs/styles/src/lib/common.styles.scss",
+          "libs/styles/src/lib/theme.scss"
+        ]
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kb",
+              "maximumError": "8kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "continuous": true,
+      "executor": "@angular-builders/custom-webpack:dev-server",
+      "options": {
+        "buildTarget": "UsersManagement:build"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "UsersManagement:build:production"
+        },
+        "development": {
+          "buildTarget": "UsersManagement:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "UsersManagement:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": [
+        "{options.reportsDirectory}"
+      ],
+      "options": {
+        "reportsDirectory": "../../coverage/apps/UsersManagement"
+      }
+    },
+    "serve-static": {
+      "continuous": true,
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "UsersManagement:build",
+        "spa": true
+      }
+    }
+  }
+}
