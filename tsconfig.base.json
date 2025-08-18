@@ -14,12 +14,13 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {  
-      "@angularFirstMicroservice/login": ["libs/login/src/index.ts"],
-      "@angularFirstMicroservice/auth": ["libs/login/src/lib/index.ts"],
-      "@angularFirstMicroservice/assets": ["libs/assets/src/index.ts"],
+    "paths": {
+      "@angularFirstMicroservice/auth": ["libs/auth/src/index.ts"],
       "@angularFirstMicroservice/components": ["libs/components/src/index.ts"],
-      "@angularFirstMicroservice/environments": ["libs/environments/src/index.ts"]
+      "@angularFirstMicroservice/errors": ["libs/errors/src/index.ts"],
+      "@angularFirstMicroservice/environments": [
+        "libs/environments/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

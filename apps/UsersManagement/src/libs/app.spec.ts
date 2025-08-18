@@ -1,11 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './appComponent';
-import { IndexComponent } from '../app/index/index.component';
 
 describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent, IndexComponent],
+      imports: [AppComponent],
     }).compileComponents();
   });
 

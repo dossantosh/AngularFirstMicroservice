@@ -1,14 +1,36 @@
+<!-- libs/.../header/header.component.html -->
 <header class="dashboard__header">
   <div class="dashboard__header-left">
-    <img src="favicon.ico" alt="Logo" class="logo" />
+    <!-- Tip: if this lib is used in multiple apps, consider an [logoSrc] @Input or use /favicon.ico -->
+    <img src="/favicon.ico" alt="Logo" class="logo" />
     <h1 class="dashboard__company-name">{{ companyName }}</h1>
   </div>
 
   <nav class="dashboard__header-center">
-    <a routerLink="/" class="module-card btn--transparent-gray">Dashboard</a>
-    <a routerLink="/users" class="module-card btn--transparent-gray">Usuarios</a>
-    <a routerLink="/perfumes" class="module-card btn--transparent-gray">Perfumes</a>
-    <a routerLink="/configuration" class="module-card btn--transparent-gray">Configuración</a>
+    <a
+      routerLink="/"
+      routerLinkActive="is-active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="module-card btn--transparent-gray"
+    >Dashboard</a>
+
+    <a
+      routerLink="/UsersManagement"
+      routerLinkActive="is-active"
+      class="module-card btn--transparent-gray"
+    >Usuarios</a>
+
+    <a
+      routerLink="/perfumes"
+      routerLinkActive="is-active"
+      class="module-card btn--transparent-gray"
+    >Perfumes</a>
+
+    <a
+      routerLink="/configuration"
+      routerLinkActive="is-active"
+      class="module-card btn--transparent-gray"
+    >Configuración</a>
   </nav>
 
   <div class="dashboard__header-right">

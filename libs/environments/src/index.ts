@@ -1,1 +1,1 @@
-export * from './lib/environments/environments';
+export * from './lib/environments/app-env';

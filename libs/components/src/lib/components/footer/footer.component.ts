@@ -8,7 +8,7 @@ import { Component, Input } from '@angular/core';
  * - year: The current year to display.
  */
 @Component({
-  selector: 'app-footer',
+  selector: 'lib-footer',
   standalone: true,
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss'],

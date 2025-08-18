@@ -1,5 +1,7 @@
+// libs/.../header/header.component.ts
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { RouterModule } from '@angular/router';
+
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 /**
  * Header component that displays company and user information,
@@ -13,11 +15,11 @@ import { RouterModule } from '@angular/router';
  * - logout: Event emitted when the user triggers a logout action.
  */
 @Component({
-  selector: 'app-header',
+  selector: 'lib-header',
   standalone: true,
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  imports: [RouterModule],
+  imports: [RouterLink, RouterLinkActive],
 })
 export class HeaderComponent {
   /** The company name to display in the header */

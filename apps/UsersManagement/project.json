@@ -4,10 +4,9 @@
   "projectType": "application",
   "prefix": "app",
   "sourceRoot": "apps/UsersManagement/src",
-  "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-builders/custom-webpack:browser",
+      "executor": "@nx/angular:webpack-browser",
       "outputs": [
         "{options.outputPath}"
       ],
@@ -15,12 +14,13 @@
         "outputPath": "dist/apps/UsersManagement",
         "index": "apps/UsersManagement/src/index.html",
         "main": "apps/UsersManagement/src/main.ts",
-        "polyfills": [
-          "zone.js"
-        ],
         "tsConfig": "apps/UsersManagement/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
+          {
+            "glob": "**/*",
+            "input": "shell/public"
+          },
           {
             "glob": "**/*",
             "input": "libs/assets/src/lib/assets",
@@ -37,13 +37,13 @@
             "libs/styles/src/lib"
           ]
         },
-        "customWebpackConfig": {
-          "path": "webpack.config.js"
-        },
         "styles": [
           "libs/styles/src/lib/common.styles.scss",
           "libs/styles/src/lib/theme.scss"
-        ]
+        ],
+        "customWebpackConfig": {
+          "path": "apps/UsersManagement/webpack.config.ts"
+        }
       },
       "configurations": {
         "production": {
@@ -74,9 +74,11 @@
     },
     "serve": {
       "continuous": true,
-      "executor": "@angular-builders/custom-webpack:dev-server",
+      "executor": "@nx/angular:dev-server",
       "options": {
-        "buildTarget": "UsersManagement:build"
+        "port": 4201,
+        "publicHost": "http://localhost:4201",
+        "buildTarget": "UsersManagement:build:development"
       },
       "configurations": {
         "production": {
@@ -87,32 +89,6 @@
         }
       },
       "defaultConfiguration": "development"
-    },
-    "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n",
-      "options": {
-        "buildTarget": "UsersManagement:build"
-      }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    },
-    "test": {
-      "executor": "@nx/vite:test",
-      "outputs": [
-        "{options.reportsDirectory}"
-      ],
-      "options": {
-        "reportsDirectory": "../../coverage/apps/UsersManagement"
-      }
-    },
-    "serve-static": {
-      "continuous": true,
-      "executor": "@nx/web:file-server",
-      "options": {
-        "buildTarget": "UsersManagement:build",
-        "spa": true
-      }
     }
   }
 }

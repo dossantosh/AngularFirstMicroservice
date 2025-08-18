@@ -1,6 +1,11 @@
-import { bootstrapApplication } from '@angular/platform-browser';
-import { AppComponent } from './libs/appComponent';
-import { appConfig } from './libs/app.config';
+import 'zone.js';
 
-bootstrapApplication(AppComponent, appConfig)
-  .catch((err) => console.error(err));
+/**
+ * Async boundary for Module Federation:
+ * - Ensures MF initializes shared scopes before Angular evaluates.
+ * - Also resolves the RUNTIME-006 error about loadShareSync.
+ */
+
+import('./bootstrap').catch((err) => {
+  console.error('[UsersManagement] main failed:', err);
+});

@@ -8,7 +8,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import { AuthService } from '@angularFirstMicroservice/auth';
-import { environment } from '@angularFirstMicroservice/environments';
+// import { APP_ENV } 
 
 /**
  * Data transfer object for User
@@ -41,7 +41,9 @@ interface KeysetPage<T> {
   styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent {
-  private readonly apiUrl = `${environment.apiUrl}/users`;
+  // private readonly env = inject(APP_ENV); 'http://localhost:9090/api'
+  // private readonly usersManagementUrl = `${this.env.usersManagementUrl}/users`;
+  private readonly usersManagementUrl = 'http://localhost:9090/api/users';
 
   private readonly auth = inject(AuthService);
   private readonly http = inject(HttpClient);
@@ -74,6 +76,7 @@ export class UsersComponent {
   empty = false;
 
   constructor() {
+
     // Fetch initial list of users on component load
     this.searchUsers();
   }
@@ -107,7 +110,7 @@ export class UsersComponent {
       params = params.set('lastId', this.lastId.toString());
     }
 
-    this.http.get<KeysetPage<UserDTO>>(this.apiUrl, { params }).subscribe({
+    this.http.get<KeysetPage<UserDTO>>(this.usersManagementUrl, { params }).subscribe({
       next: (page) => {
         if (page) {
           this.users = page.content || [];
