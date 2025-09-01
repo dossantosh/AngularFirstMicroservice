@@ -13,6 +13,7 @@ export default defineConfig(() => ({
   //  plugins: [ nxViteTsPaths() ],
   // },
   test: {
+    name: 'shell',
     watch: false,
     globals: true,
     environment: 'jsdom',

@@ -1,9 +1,0 @@
-{
-  "/remotes/users": {
-    "target": "http://localhost:4201",
-    "secure": false,
-    "changeOrigin": true,
-    "pathRewrite": { "^/remotes/users": "" },
-    "logLevel": "debug"
-  }
-}

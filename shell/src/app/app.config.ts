@@ -4,14 +4,18 @@ import {
   provideZoneChangeDetection,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { routes } from './app.routes';
+import { appRoutes } from './app.routes';
 
-import { provideSharedErrorHandling } from '@angularFirstMicroservice/errors';
-import { provideAnimations } from '@angular/platform-browser/animations';
+import {
+  provideHttpClient,
+  withInterceptors,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from '@angularFirstMicroservice/auth';
 
+// import { provideSharedErrorHandling } from '@angularFirstMicroservice/errors';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 /**
  * Root application configuration for the shell.
@@ -28,12 +32,6 @@ import { authInterceptor } from '@angularFirstMicroservice/auth';
 export const appConfig: ApplicationConfig = {
   providers: [
     /**
-     * Registers global error listeners for unhandled errors and promise rejections.
-     * Useful for logging, monitoring, and displaying fallback UIs.
-     */
-    provideBrowserGlobalErrorListeners(),
-
-    /**
      * Configures Angular change detection to coalesce events,
      * reducing the number of change detection cycles triggered
      * during high-frequency DOM events.
@@ -44,13 +42,17 @@ export const appConfig: ApplicationConfig = {
      * Configures the application router with the defined routes.
      * Uses the standalone router API (no NgModules).
      */
-    provideRouter(routes),
+    provideRouter(appRoutes),
 
     /**
      * Configures the HTTP client and attaches the authentication interceptor
      * for adding auth headers to outgoing requests.
      */
-    provideHttpClient(withInterceptors([authInterceptor])),
+    provideHttpClient(
+      withInterceptors([authInterceptor]),
+      // keep this if you also have CLASS interceptors elsewhere; otherwise you can drop it
+      withInterceptorsFromDi()
+    ),
 
     /**
      * Enables Angular's animation capabilities.
@@ -59,11 +61,17 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
 
     /**
+     * Registers global error listeners for unhandled errors and promise rejections.
+     * Useful for logging, monitoring, and displaying fallback UIs.
+     */
+    provideBrowserGlobalErrorListeners(),
+
+    /**
      * Provides shared error handling for the app.
      * This includes:
      * - Global error interceptor for HTTP requests
      * - NotificationService for user-friendly messages via snack bars
      */
-    provideSharedErrorHandling(),
+    // provideSharedErrorHandling(),
   ],
 };

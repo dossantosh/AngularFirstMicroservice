@@ -17,9 +17,8 @@
     "paths": {
       "@angularFirstMicroservice/auth": ["libs/auth/src/index.ts"],
       "@angularFirstMicroservice/components": ["libs/components/src/index.ts"],
-      "@angularFirstMicroservice/errors": ["libs/errors/src/index.ts"],
-      "@angularFirstMicroservice/environments": [
-        "libs/environments/src/index.ts"
+      "UsersManagement/Routes": [
+        "apps/UsersManagement/src/app/remote-entry/entry.routes.ts"
       ]
     }
   },

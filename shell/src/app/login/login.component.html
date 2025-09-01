@@ -8,9 +8,14 @@
       formControlName="username"
       [class.invalid]="submitted && f['username'].invalid"
     />
-    <div *ngIf="submitted && f['username'].errors" class="error">
-      <small *ngIf="f['username'].errors['required']">Usuario es obligatorio.</small>
-    </div>
+
+    @if (submitted && f['username'].errors) {
+      <div class="error">
+        @if (f['username'].errors['required']) {
+          <small>Usuario es obligatorio.</small>
+        }
+      </div>
+    }
 
     <input
       type="password"
@@ -18,9 +23,14 @@
       formControlName="password"
       [class.invalid]="submitted && f['password'].invalid"
     />
-    <div *ngIf="submitted && f['password'].errors" class="error">
-      <small *ngIf="f['password'].errors['required']">Contraseña es obligatoria.</small>
-    </div>
+
+    @if (submitted && f['password'].errors) {
+      <div class="error">
+        @if (f['password'].errors['required']) {
+          <small>Contraseña es obligatoria.</small>
+        }
+      </div>
+    }
 
     <button type="submit">Entrar</button>
   </form>

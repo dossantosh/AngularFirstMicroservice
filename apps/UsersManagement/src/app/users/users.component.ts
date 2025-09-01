@@ -6,8 +6,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-
-import { AuthService } from '@angularFirstMicroservice/auth';
 // import { APP_ENV } 
 
 /**
@@ -41,11 +39,8 @@ interface KeysetPage<T> {
   styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent {
-  // private readonly env = inject(APP_ENV); 'http://localhost:9090/api'
-  // private readonly usersManagementUrl = `${this.env.usersManagementUrl}/users`;
   private readonly usersManagementUrl = 'http://localhost:9090/api/users';
-
-  private readonly auth = inject(AuthService);
+  
   private readonly http = inject(HttpClient);
 
   // Display data
@@ -76,16 +71,8 @@ export class UsersComponent {
   empty = false;
 
   constructor() {
-
     // Fetch initial list of users on component load
     this.searchUsers();
-  }
-
-  /**
-   * Logs out the current user and redirects to the login page.
-   */
-  logout() {
-    this.auth.logout();
   }
 
   /**

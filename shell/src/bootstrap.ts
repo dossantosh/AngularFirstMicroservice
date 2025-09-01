@@ -1,13 +1,5 @@
-// apps/shell/src/bootstrap.ts
-/**
- * Angular bootstrap entrypoint for the shell.
- * Keep this file free of MF logic so unit tests and tooling stay simple.
- */
 import { bootstrapApplication } from '@angular/platform-browser';
-import { AppComponent } from './libs/appComponent';
-import { appConfig } from './libs/app.config';
+import { appConfig } from './app/app.config';
+import { AppComponent } from './app/appComponent';
 
-bootstrapApplication(AppComponent, appConfig).catch((err) => {
-  // Surface bootstrap errors early (CI/CD + local dev)
-  console.error('Shell bootstrap failed:', err);
-});
+bootstrapApplication(AppComponent, appConfig).catch((err) => console.error(err));

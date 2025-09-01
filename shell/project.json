@@ -8,10 +8,16 @@
   "targets": {
     "build": {
       "executor": "@nx/angular:webpack-browser",
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/shell",
         "index": "shell/src/index.html",
         "main": "shell/src/main.ts",
+        "polyfills": [
+          "zone.js"
+        ],
         "tsConfig": "shell/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -30,15 +36,16 @@
             "output": "/"
           }
         ],
+        "styles": [
+          "libs/styles/src/lib/common.styles.scss",
+          "libs/styles/src/lib/theme.scss",
+          "shell/src/styles.scss"
+        ],
         "stylePreprocessorOptions": {
           "includePaths": [
             "libs/styles/src/lib"
           ]
         },
-        "styles": [
-          "libs/styles/src/lib/common.styles.scss",
-          "libs/styles/src/lib/theme.scss"
-        ],
         "customWebpackConfig": {
           "path": "shell/webpack.config.ts"
         }
@@ -57,7 +64,10 @@
               "maximumError": "8kb"
             }
           ],
-          "outputHashing": "all"
+          "outputHashing": "all",
+          "customWebpackConfig": {
+            "path": "shell/webpack.prod.config.ts"
+          }
         },
         "development": {
           "buildOptimizer": false,
@@ -72,12 +82,10 @@
     },
     "serve": {
       "continuous": true,
-      "executor": "@nx/angular:dev-server",
+      "executor": "@nx/angular:module-federation-dev-server",
       "options": {
         "port": 4200,
-        "publicHost": "http://localhost:4200",
-        "buildTarget": "shell:build:development",
-        "proxyConfig": "shell/public/proxy.conf.mf.json"
+        "publicHost": "http://localhost:4200"
       },
       "configurations": {
         "production": {
@@ -98,22 +106,12 @@
     "lint": {
       "executor": "@nx/eslint:lint"
     },
-    "test": {
-      "executor": "@nx/vite:test",
-      "outputs": [
-        "{options.reportsDirectory}"
-      ],
-      "options": {
-        "reportsDirectory": "../coverage/shell"
-      }
-    },
     "serve-static": {
       "continuous": true,
       "executor": "@nx/web:file-server",
       "options": {
         "buildTarget": "shell:build",
         "port": 4200,
-        "devRemotes": [],
         "spa": true
       }
     }

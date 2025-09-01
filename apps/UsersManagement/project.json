@@ -4,6 +4,7 @@
   "projectType": "application",
   "prefix": "app",
   "sourceRoot": "apps/UsersManagement/src",
+  "tags": [],
   "targets": {
     "build": {
       "executor": "@nx/angular:webpack-browser",
@@ -14,12 +15,15 @@
         "outputPath": "dist/apps/UsersManagement",
         "index": "apps/UsersManagement/src/index.html",
         "main": "apps/UsersManagement/src/main.ts",
+        "polyfills": [
+          "zone.js"
+        ],
         "tsConfig": "apps/UsersManagement/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
           {
             "glob": "**/*",
-            "input": "shell/public"
+            "input": "apps/UsersManagement/public"
           },
           {
             "glob": "**/*",
@@ -32,15 +36,16 @@
             "output": "/"
           }
         ],
+        "styles": [
+          "libs/styles/src/lib/common.styles.scss",
+          "libs/styles/src/lib/theme.scss",
+          "apps/UsersManagement/src/styles.scss"
+        ],
         "stylePreprocessorOptions": {
           "includePaths": [
             "libs/styles/src/lib"
           ]
         },
-        "styles": [
-          "libs/styles/src/lib/common.styles.scss",
-          "libs/styles/src/lib/theme.scss"
-        ],
         "customWebpackConfig": {
           "path": "apps/UsersManagement/webpack.config.ts"
         }
@@ -59,7 +64,10 @@
               "maximumError": "8kb"
             }
           ],
-          "outputHashing": "all"
+          "outputHashing": "all",
+          "customWebpackConfig": {
+            "path": "apps/UsersManagement/webpack.prod.config.ts"
+          }
         },
         "development": {
           "buildOptimizer": false,
@@ -76,9 +84,8 @@
       "continuous": true,
       "executor": "@nx/angular:dev-server",
       "options": {
-        "port": 4201,
-        "publicHost": "http://localhost:4201",
-        "buildTarget": "UsersManagement:build:development"
+        "port": 4301,
+        "publicHost": "http://localhost:4301"
       },
       "configurations": {
         "production": {
@@ -88,7 +95,37 @@
           "buildTarget": "UsersManagement:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "dependsOn": [
+        "shell:serve"
+      ]
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "UsersManagement:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "serve-static": {
+      "continuous": true,
+      "executor": "@nx/web:file-server",
+      "defaultConfiguration": "production",
+      "options": {
+        "buildTarget": "UsersManagement:build",
+        "port": 4301,
+        "watch": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "UsersManagement:build:development"
+        },
+        "production": {
+          "buildTarget": "UsersManagement:build:production"
+        }
+      }
     }
   }
 }
