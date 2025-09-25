@@ -85,14 +85,19 @@
       "executor": "@nx/angular:module-federation-dev-server",
       "options": {
         "port": 4200,
-        "publicHost": "http://localhost:4200"
+        "host": "0.0.0.0",
+        "publicHost": "http://localhost:4200",
+        "proxyConfig": "shell/proxy.conf.json"
       },
       "configurations": {
         "production": {
           "buildTarget": "shell:build:production"
         },
         "development": {
-          "buildTarget": "shell:build:development"
+          "buildTarget": "shell:build:development",
+          "devRemotes": [
+            "UsersManagement"
+          ]
         }
       },
       "defaultConfiguration": "development"

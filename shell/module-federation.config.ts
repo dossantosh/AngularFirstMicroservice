@@ -14,7 +14,9 @@ const config: ModuleFederationConfig = {
    * declare module 'my-external-remote';
    *
    */
-  remotes: ['UsersManagement'],
+  remotes: [
+    ['UsersManagement', 'http://localhost:4301'], // full URL
+  ],
 };
 
 /**

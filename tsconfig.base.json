@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@angularFirstMicroservice/auth": ["libs/auth/src/index.ts"],
+      "@angularFirstMicroservice/auth": ["libs/auth/src/indexAuth.ts"],
       "@angularFirstMicroservice/components": ["libs/components/src/index.ts"],
       "UsersManagement/Routes": [
         "apps/UsersManagement/src/app/remote-entry/entry.routes.ts"

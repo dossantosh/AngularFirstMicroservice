@@ -85,6 +85,7 @@
       "executor": "@nx/angular:dev-server",
       "options": {
         "port": 4301,
+        "host": "0.0.0.0",
         "publicHost": "http://localhost:4301"
       },
       "configurations": {
@@ -116,6 +117,8 @@
       "options": {
         "buildTarget": "UsersManagement:build",
         "port": 4301,
+        "host": "0.0.0.0",
+        "publicHost": "http://localhost:4301",
         "watch": false
       },
       "configurations": {

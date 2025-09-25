@@ -39,7 +39,7 @@ interface KeysetPage<T> {
   styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent {
-  private readonly usersManagementUrl = 'http://localhost:9090/api/users';
+  private readonly usersManagementUrl = '/api-auth/api/users';
   
   private readonly http = inject(HttpClient);
 

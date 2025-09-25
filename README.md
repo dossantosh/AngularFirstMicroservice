@@ -1,82 +1,89 @@
-# AngularFirstMicroservice
+# Angular Nx Micro-Frontend Monorepo (Shell & UsersManagement)
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+## Overview: Project Purpose & Architecture
+This repository is an **Angular Nx monorepo** that demonstrates a micro-frontend architecture using **Webpack Module Federation**. The project consists of a **shell** (host) Angular application and one or more **remote** micro-frontend apps (e.g. a `UsersManagement` app). The shell is the main container application that hosts common layout (header, footer, etc.) and authentication, while the remote apps provide specific feature modules (like user management) that are loaded into the shell at runtime. The...
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+---
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+## Prerequisites
+- **Node.js** – You need **Node.js v20.19.0 or higher** (Angular 20 requires Node 20.19.0+).  
+- **Nx CLI** – Install globally with `npm install -g nx` (or use `npx nx`).  
+- **Package Manager** – npm (package-lock.json is present).  
 
-## Finish your CI setup
+---
 
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/8RiAPg2JWX)
+## Installation
+1. Clone the repository.  
+2. Run `npm install` in the root.  
+3. Verify setup (`node_modules` present, no errors).  
 
+---
 
-## Run tasks
+## Running the Application (Development)
+### Run the Shell with Remotes
+```bash
+nx serve shell
+```
+- Shell runs at [http://localhost:4200](http://localhost:4200).  
+- UsersManagement remote auto-serves at [http://localhost:4301](http://localhost:4301).  
 
-To run the dev server for your app, use:
+### Run a Remote Individually
+```bash
+nx serve UsersManagement
+```
+- Runs on [http://localhost:4301](http://localhost:4301).  
 
-```sh
-npx nx serve UsersManagement
+### Proxy Configuration
+`shell/proxy.conf.json`:
+```json
+{
+  "/api-auth": {
+    "target": "http://localhost:9090",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": { "^/api-auth": "" }
+  }
+}
+```
+Used only in dev to forward API calls (avoids CORS).  
+
+---
+
+## Project Structure
+```
+apps/
+  UsersManagement/   # Remote micro-frontend
+shell/               # Host app (main container)
+libs/
+  auth/              # Authentication (guards, services)
+  components/        # Shared UI (header, footer, layouts)
+  styles/            # Global SCSS theme/styles
+  assets/            # Shared static assets (favicon, logo)
 ```
 
-To create a production bundle:
+- Apps and shell: Angular standalone apps with Module Federation configs.  
+- Libs: reusable Angular libraries shared across apps.  
 
-```sh
-npx nx build UsersManagement
-```
+---
 
-To see all available targets to run for a project, run:
+## Testing (Vitest)
+- Run `nx test auth` (or `nx test components`, etc.).  
+- Run `nx test` for all projects.  
+- Configured via `vite.config.mts` + AnalogJS plugins.  
+- Coverage reports go to `coverage/`.  
 
-```sh
-npx nx show project UsersManagement
-```
+---
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+## Building for Production (Rsbuild)
+- Faster builds with **Rspack (Rsbuild)**.  
+- Commands:
+  ```bash
+  nx build shell
+  nx build UsersManagement
+  ```
+- Outputs:
+  - `dist/shell/` → shell build  
+  - `dist/apps/usersmanagement/` → remote build (`remoteEntry.js`)  
+- Use `nx serve-static shell` to serve production build locally.  
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Add new projects
-
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
-
-Use the plugin's generator to create new projects.
-
-To generate a new application, use:
-
-```sh
-npx nx g @nx/angular:app demo
-```
-
-To generate a new library, use:
-
-```sh
-npx nx g @nx/angular:lib mylib
-```
-
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
-
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Install Nx Console
-
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+---
