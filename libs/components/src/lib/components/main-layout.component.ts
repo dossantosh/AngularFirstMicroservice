@@ -18,7 +18,7 @@ import { AuthService } from '@angularFirstMicroservice/auth';
 @Component({
   selector: 'lib-base-layout',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent, RouterOutlet],
+  imports: [HeaderComponent, RouterOutlet, FooterComponent],
   template: `
     <div class="dashboard">
       <lib-header
